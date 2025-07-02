@@ -384,6 +384,22 @@
             box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
         }
 
+        .btn-edit {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
         .btn-delete {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
@@ -561,6 +577,7 @@
                     <button type="button" class="variable-btn" onclick="insertVariable('[DATE]')">Date</button>
                     <button type="button" class="variable-btn" onclick="insertVariable('[YOUR_NAME]')">Your Name</button>
                     <button type="button" class="variable-btn" onclick="insertVariable('[ORDER_NUMBER]')">Order #</button>
+                    <button type="button" class="variable-btn" onclick="insertVariable('• ')">• Bullet</button>
                 </div>
             </div>
             <button class="btn-add" onclick="addMacro()">Add Macro</button>
@@ -616,6 +633,64 @@
             document.getElementById('macroContent').value = '';
             
             showNotification('Macro added successfully! 🎉');
+        }
+
+        // Edit macro function
+        function editMacro(id) {
+            const macro = macros.find(m => m.id === id);
+            if (!macro) return;
+
+            // Populate form with existing data
+            document.getElementById('macroName').value = macro.name;
+            document.getElementById('macroContent').value = macro.content;
+            document.getElementById('macroCategory').value = macro.category;
+
+            // Change button to update mode
+            const addBtn = document.querySelector('.btn-add');
+            addBtn.textContent = 'Update Macro';
+            addBtn.onclick = () => updateMacro(id);
+
+            // Scroll to form
+            document.querySelector('.add-macro-section').scrollIntoView({ behavior: 'smooth' });
+
+            showNotification('Edit mode activated! Make changes and click Update Macro');
+        }
+
+        // Update macro function
+        function updateMacro(id) {
+            const name = document.getElementById('macroName').value.trim();
+            const content = document.getElementById('macroContent').value.trim();
+            const category = document.getElementById('macroCategory').value;
+
+            if (!name || !content) {
+                showNotification('Please fill in both name and content!', 'error');
+                return;
+            }
+
+            const macroIndex = macros.findIndex(m => m.id === id);
+            if (macroIndex !== -1) {
+                macros[macroIndex] = {
+                    ...macros[macroIndex],
+                    name: name,
+                    content: content,
+                    category: category
+                };
+
+                saveMacros();
+                renderMacros();
+                updateQuickActions();
+
+                // Reset form
+                document.getElementById('macroName').value = '';
+                document.getElementById('macroContent').value = '';
+                
+                // Reset button to add mode
+                const addBtn = document.querySelector('.btn-add');
+                addBtn.textContent = 'Add Macro';
+                addBtn.onclick = addMacro;
+
+                showNotification('Macro updated successfully! ✨');
+            }
         }
 
         // Delete macro function
@@ -780,6 +855,9 @@
                                 <button class="btn-copy" onclick="copyMacro(\`${macro.content.replace(/`/g, '\\`')}\`, ${macro.id}, '${macro.name}')">
                                     📋 Copy
                                 </button>
+                                <button class="btn-edit" onclick="editMacro(${macro.id})">
+                                    ✏️
+                                </button>
                                 <button class="btn-delete" onclick="deleteMacro(${macro.id})">
                                     🗑️
                                 </button>
@@ -869,7 +947,7 @@
                     {
                         id: 2,
                         name: "Follow-up Response",
-                        content: "Hi [CUSTOMER_NAME],\n\nI wanted to follow up on your recent inquiry. Have you had a chance to review the information we provided?\n\nPlease let me know if you have any questions.\n\nBest regards,\n[YOUR_NAME]",
+                        content: "Hi [CUSTOMER_NAME],\n\nI wanted to follow up on your recent inquiry. Here are the next steps:\n• Review the attached documents\n• Complete the required forms\n• Return them by [DATE]\n\nPlease let me know if you have any questions.\n\nBest regards,\n[YOUR_NAME]",
                         category: "followup", 
                         createdAt: new Date().toLocaleDateString(),
                         usageCount: 0
