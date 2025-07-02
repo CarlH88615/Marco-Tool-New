@@ -814,4 +814,59 @@
             notification.className = `notification show ${type}`;
             
             setTimeout(() => {
-                notification.
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function playNotificationSound() {
+            // Create a simple beep sound
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (e) {
+                // Ignore if audio context not supported
+            }
+        }
+
+        // Initialize the app
+        renderMacros();
+        updateCopyHistory();
+        updateQuickActions();
+
+        // Add some sample macros if none exist
+        if (macros.length === 0) {
+            macros = [
+                {
+                    id: 1,
+                    name: "Welcome Email",
+                    content: "Hi [CUSTOMER_NAME],\n\nThank you for contacting us! We've received your inquiry and will get back to you within 24 hours.\n\nBest regards,\n[YOUR_NAME]",
+                    category: "welcome",
+                    createdAt: new Date().toLocaleDateString(),
+                    usageCount: 0
+                },
+                {
+                    id: 2,
+                    name: "Follow-up Response",
+                    content: "Hi [CUSTOMER_NAME],\n\nI wanted to follow up on your recent inquiry. Have you had a chance to review the information we provided?\n\nPlease let me know if you have any questions.\n\nBest regards,\n[YOUR_NAME]",
+                    category: "followup", 
+                    createdAt: new Date().toLocaleDateString(),
+                    usageCount: 0
+                }
+            ];
+            saveMacros();
+            renderMacros();
+            updateQuickActions();
+        }
