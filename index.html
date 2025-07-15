@@ -847,4 +847,156 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <h3>${filteredMacros ? 'No matching macros found' : (currentFilter === 'all' ? 'No macros yet' : 'No macros in this category')}</h3>
-                        <p>${filteredM
+                        <p>${filteredMacros ? 'Try a different search term' : 'Add your first email template above to get started!'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="macros-grid">
+                    ${macrosToShow.map(macro => `
+                        <div class="macro-card ${macro.category}" 
+                             onmouseenter="showPreview(event, \`${macro.content.replace(/`/g, '\\`').replace(/\n/g, '\\n')}\`)"
+                             onmouseleave="hidePreview()">
+                            <div class="macro-category ${macro.category}">${macro.category}</div>
+                            <h3>${macro.name} ${macro.usageCount ? `<span style="opacity: 0.6; font-size: 0.8em;">(${macro.usageCount} uses)</span>` : ''}</h3>
+                            <div class="macro-content">${macro.content.replace(/\n/g, '<br>').replace(/\[([A-Z_]+)\]/g, '<strong style="color: #667eea;">[$1]</strong>')}</div>
+                            <div class="macro-actions">
+                                <button class="btn-copy" data-macro-id="${macro.id}">
+                                    📋 Copy
+                                </button>
+                                <button class="btn-edit" data-macro-id="${macro.id}">
+                                    ✏️
+                                </button>
+                                <button class="btn-delete" data-macro-id="${macro.id}">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Add event listeners to all buttons after rendering
+            container.querySelectorAll('.btn-copy').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const macroId = parseInt(e.target.getAttribute('data-macro-id'));
+                    const macro = macros.find(m => m.id === macroId);
+                    if (macro) {
+                        copyMacro(macro.content, macro.id, macro.name);
+                    }
+                });
+            });
+            
+            container.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const macroId = parseInt(e.target.getAttribute('data-macro-id'));
+                    editMacro(macroId);
+                });
+            });
+            
+            container.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const macroId = parseInt(e.target.getAttribute('data-macro-id'));
+                    deleteMacro(macroId);
+                });
+            });
+        }
+
+        // Search macros
+        function searchMacros() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const filtered = macros.filter(macro => 
+                macro.name.toLowerCase().includes(searchTerm) || 
+                macro.content.toLowerCase().includes(searchTerm) ||
+                macro.category.toLowerCase().includes(searchTerm)
+            );
+            renderMacros(filtered);
+        }
+
+        // Show preview tooltip
+        function showPreview(event, content) {
+            const tooltip = document.getElementById('previewTooltip');
+            tooltip.innerHTML = content.replace(/\n/g, '<br>').replace(/\[([A-Z_]+)\]/g, '<strong style="color: #4facfe;">[$1]</strong>');
+            tooltip.style.left = event.pageX + 20 + 'px';
+            tooltip.style.top = event.pageY + 'px';
+            tooltip.classList.add('show');
+        }
+
+        // Hide preview tooltip
+        function hidePreview() {
+            document.getElementById('previewTooltip').classList.remove('show');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification show ${type}`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Play notification sound
+        function playNotificationSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (e) {
+                // Ignore if audio context not supported
+            }
+        }
+
+        // Initialize the app
+        function initializeApp() {
+            renderMacros();
+            updateCopyHistory();
+            updateQuickActions();
+
+            // Add some sample macros if none exist
+            if (macros.length === 0) {
+                macros = [
+                    {
+                        id: 1,
+                        name: "Welcome Email",
+                        content: "Hi [CUSTOMER_NAME],\n\nThank you for contacting us! We've received your inquiry and will get back to you within 24 hours.\n\nBest regards,\n[YOUR_NAME]",
+                        category: "welcome",
+                        createdAt: new Date().toLocaleDateString(),
+                        usageCount: 0
+                    },
+                    {
+                        id: 2,
+                        name: "Follow-up Response",
+                        content: "Hi [CUSTOMER_NAME],\n\nI wanted to follow up on your recent inquiry. Here are the next steps:\n• Review the attached documents\n• Complete the required forms\n• Return them by [DATE]\n\nPlease let me know if you have any questions.\n\nBest regards,\n[YOUR_NAME]",
+                        category: "followup", 
+                        createdAt: new Date().toLocaleDateString(),
+                        usageCount: 0
+                    }
+                ];
+                saveMacros();
+                renderMacros();
+                updateQuickActions();
+            }
+        }
+
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
