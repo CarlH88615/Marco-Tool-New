@@ -33,6 +33,7 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
         }
 
         .header h1 {
@@ -48,6 +49,199 @@
         .header p {
             color: #666;
             font-size: 1.1em;
+        }
+
+        /* Backup Controls */
+        .backup-controls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .backup-btn {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+        }
+
+        .backup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+        }
+
+        .backup-btn.guide {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .backup-btn.export {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+        }
+
+        .backup-btn.import {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        /* Hidden file input */
+        #importFile {
+            display: none;
+        }
+
+        /* Backup Guide Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff416c;
+        }
+
+        .backup-step {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .warning-box {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         /* Quick Actions Bar */
@@ -511,12 +705,28 @@
                 flex: 1;
                 min-width: 0;
             }
+
+            .backup-controls {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            .modal {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="backup-controls">
+                <button class="backup-btn guide" onclick="showBackupGuide()">📚 Backup Guide</button>
+                <button class="backup-btn export" onclick="exportMacros()">💾 Export</button>
+                <button class="backup-btn import" onclick="triggerImport()">📁 Import</button>
+                <input type="file" id="importFile" accept=".json" onchange="importMacros(event)">
+            </div>
             <h1>✨ Macro Tool</h1>
             <p>Quick copy-paste templates for Gnatta email platform</p>
         </div>
@@ -593,6 +803,53 @@
         </div>
     </div>
 
+    <!-- Backup Guide Modal -->
+    <div class="modal-overlay" id="backupModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">💾 Backup Guide</h2>
+                <button class="modal-close" onclick="hideBackupGuide()">×</button>
+            </div>
+            
+            <div class="warning-box">
+                🚨 IMPORTANT: Before any app update, always backup your macros!
+            </div>
+
+            <div class="backup-step">
+                <span class="step-number">1</span>
+                <div class="step-title">Export Your Macros</div>
+                <div class="step-description">
+                    Click the "💾 Export" button to download a backup file. This saves all your macros, usage statistics, and settings to your computer.
+                </div>
+            </div>
+
+            <div class="backup-step">
+                <span class="step-number">2</span>
+                <div class="step-title">Save the File Safely</div>
+                <div class="step-description">
+                    Save the downloaded JSON file somewhere you'll remember (like your Desktop or Documents folder). The filename includes today's date for easy identification.
+                </div>
+            </div>
+
+            <div class="backup-step">
+                <span class="step-number">3</span>
+                <div class="step-title">After Updates</div>
+                <div class="step-description">
+                    When the app is updated and your macros are gone, click "📁 Import" and select your backup file. You can choose to merge with any existing macros or replace everything.
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="exportMacros(); hideBackupGuide();">
+                    💾 Export My Macros Now
+                </button>
+                <button class="modal-btn secondary" onclick="hideBackupGuide();">
+                    Got It!
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="notification" class="notification"></div>
     <div id="previewTooltip" class="preview-tooltip"></div>
 
@@ -602,6 +859,95 @@
         let copyHistory = JSON.parse(localStorage.getItem('copyHistory')) || [];
         let macroUsage = JSON.parse(localStorage.getItem('macroUsage')) || {};
         let currentFilter = 'all';
+
+        // Backup and Import Functions
+        function showBackupGuide() {
+            document.getElementById('backupModal').classList.add('show');
+        }
+
+        function hideBackupGuide() {
+            document.getElementById('backupModal').classList.remove('show');
+        }
+
+        function exportMacros() {
+            const dataToExport = {
+                macros: macros,
+                copyHistory: copyHistory,
+                macroUsage: macroUsage,
+                exportDate: new Date().toISOString(),
+                version: "1.0"
+            };
+            
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `macro-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            showNotification('📁 Macros exported successfully! File saved to Downloads.');
+        }
+
+        function triggerImport() {
+            document.getElementById('importFile').click();
+        }
+
+        function importMacros(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (importedData.macros && Array.isArray(importedData.macros)) {
+                        let shouldMerge = true;
+                        
+                        // Only ask about merge/replace if user has existing macros
+                        if (macros.length > 0) {
+                            shouldMerge = confirm(
+                                `Found ${importedData.macros.length} macros to import.\n\n` +
+                                'Click OK to MERGE with existing macros\n' +
+                                'Click Cancel to REPLACE all existing macros'
+                            );
+                        }
+                        
+                        if (shouldMerge) {
+                            // Merge: add imported macros with new IDs to avoid conflicts
+                            const maxId = Math.max(...macros.map(m => m.id), 0);
+                            const importedMacros = importedData.macros.map((macro, index) => ({
+                                ...macro,
+                                id: maxId + index + 1
+                            }));
+                            macros = [...macros, ...importedMacros];
+                        } else {
+                            // Replace: use imported data entirely
+                            macros = importedData.macros;
+                            copyHistory = importedData.copyHistory || [];
+                            macroUsage = importedData.macroUsage || {};
+                        }
+                        
+                        saveMacros();
+                        renderMacros();
+                        updateQuickActions();
+                        updateCopyHistory();
+                        
+                        showNotification(`🎉 Successfully imported ${importedData.macros.length} macros!`);
+                    } else {
+                        showNotification('❌ Invalid backup file format!', 'error');
+                    }
+                } catch (error) {
+                    showNotification('❌ Error reading backup file!', 'error');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Clear the input so the same file can be selected again
+            event.target.value = '';
+        }
 
         // Add new macro function
         function addMacro() {
@@ -962,6 +1308,13 @@
                 // Ignore if audio context not supported
             }
         }
+
+        // Close modal when clicking outside
+        document.getElementById('backupModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideBackupGuide();
+            }
+        });
 
         // Initialize the app
         function initializeApp() {
