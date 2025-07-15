@@ -51,8 +51,8 @@
             font-size: 1.1em;
         }
 
-        /* Backup Controls */
-        .backup-controls {
+        /* Settings and Backup Controls */
+        .header-controls {
             position: absolute;
             top: 0;
             right: 0;
@@ -60,8 +60,8 @@
             gap: 10px;
         }
 
-        .backup-btn {
-            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+        .control-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             border: none;
             padding: 10px 15px;
@@ -70,32 +70,546 @@
             font-size: 12px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
-        .backup-btn:hover {
+        .control-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .backup-btn.guide {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-        }
-
-        .backup-btn.export {
-            background: linear-gradient(45deg, #11998e, #38ef7d);
-        }
-
-        .backup-btn.import {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
-        }
+        .control-btn.backup { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+        .control-btn.export { background: linear-gradient(45deg, #11998e, #38ef7d); }
+        .control-btn.import { background: linear-gradient(45deg, #f093fb, #f5576c); }
 
         /* Hidden file input */
         #importFile {
             display: none;
         }
 
-        /* Backup Guide Modal */
+        /* Favorites Bar */
+        .favorites-bar {
+            background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(255, 236, 210, 0.3);
+        }
+
+        .favorites-bar h3 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* Quick Actions Bar */
+        .quick-actions {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .quick-actions h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .quick-buttons, .favorite-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .quick-btn, .favorite-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .favorite-btn {
+            background: rgba(139, 69, 19, 0.2);
+            color: #8b4513;
+            border-color: rgba(139, 69, 19, 0.3);
+        }
+
+        .quick-btn:hover, .favorite-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .favorite-btn:hover {
+            background: rgba(139, 69, 19, 0.3);
+        }
+
+        /* Copy History */
+        .copy-history {
+            background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.3);
+        }
+
+        .copy-history h3 {
+            color: #444;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .history-items {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: white;
+            transform: translateY(-1px);
+        }
+
+        /* Categories */
+        .category-section {
+            margin-bottom: 30px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.7);
+            color: #555;
+            position: relative;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .category-btn.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-btn .edit-icon {
+            margin-left: 5px;
+            opacity: 0.7;
+            font-size: 10px;
+        }
+
+        .manage-categories-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .manage-categories-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* View Mode Controls */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #555;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .add-macro-section {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+
+        .add-macro-section h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .form-group.small {
+            flex: 0 0 200px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .variable-helpers {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .variable-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .variable-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .manage-variables-btn {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 5px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .manage-variables-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-add {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 5px 30px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .macros-grid {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .macros-grid.compact {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .macros-grid.normal {
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .macros-grid.large {
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 30px;
+        }
+
+        .macro-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .macro-card.compact {
+            padding: 18px;
+        }
+
+        .macro-card.large {
+            padding: 30px;
+        }
+
+        .macro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .macro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .macro-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .macro-title {
+            flex: 1;
+        }
+
+        .macro-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: #ddd;
+        }
+
+        .star-btn.starred {
+            color: #ffd700;
+        }
+
+        .star-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .macro-category {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .macro-content {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555;
+            border-left: 4px solid #667eea;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .macro-content.compact {
+            padding: 12px;
+            font-size: 13px;
+            max-height: 120px;
+        }
+
+        .macro-content.large {
+            padding: 18px;
+            font-size: 15px;
+            max-height: 180px;
+        }
+
+        .macro-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-copy {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-edit {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-delete {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -244,370 +758,64 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* Quick Actions Bar */
-        .quick-actions {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
-        }
-
-        .quick-actions h3 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            text-align: center;
-        }
-
-        .quick-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .quick-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .quick-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-        }
-
-        /* Copy History */
-        .copy-history {
-            background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.3);
-        }
-
-        .copy-history h3 {
-            color: #444;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .history-items {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .history-item {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .history-item:hover {
-            background: white;
-            transform: translateY(-1px);
-        }
-
-        /* Categories */
-        .category-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .category-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.7);
-            color: #555;
-        }
-
-        .category-btn.active {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .category-welcome.active { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
-        .category-followup.active { background: linear-gradient(45deg, #a8edea, #fed6e3); }
-        .category-closing.active { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
-        .category-support.active { background: linear-gradient(45deg, #667eea, #764ba2); }
-        .category-other.active { background: linear-gradient(45deg, #f093fb, #f5576c); }
-
-        .add-macro-section {
-            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
-        }
-
-        .add-macro-section h2 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
+        /* Management Forms */
+        .management-form {
             margin-bottom: 20px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        .form-group.small {
-            flex: 0 0 200px;
-        }
-
-        .form-group label {
-            display: block;
-            color: white;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            background: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .variable-helpers {
+        .management-item {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .variable-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .variable-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-add {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-add:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .search-box:focus {
-            outline: none;
-            box-shadow: 0 5px 30px rgba(102, 126, 234, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .macros-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .macro-card {
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .macro-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-
-        .macro-card.welcome::before { background: linear-gradient(90deg, #ff9a9e, #fecfef); }
-        .macro-card.followup::before { background: linear-gradient(90deg, #a8edea, #fed6e3); }
-        .macro-card.closing::before { background: linear-gradient(90deg, #ffecd2, #fcb69f); }
-        .macro-card.support::before { background: linear-gradient(90deg, #667eea, #764ba2); }
-        .macro-card.other::before { background: linear-gradient(90deg, #f093fb, #f5576c); }
-
-        .macro-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .macro-card h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-
-        .macro-category {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
-        }
-
-        .macro-category.welcome { background: #ff9a9e; color: white; }
-        .macro-category.followup { background: #a8edea; color: #444; }
-        .macro-category.closing { background: #ffecd2; color: #444; }
-        .macro-category.support { background: #667eea; color: white; }
-        .macro-category.other { background: #f093fb; color: white; }
-
-        .macro-content {
-            background: #f8f9fa;
+            align-items: center;
+            gap: 15px;
             padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .management-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
             font-size: 14px;
-            line-height: 1.5;
-            color: #555;
-            border-left: 4px solid #667eea;
-            max-height: 150px;
-            overflow-y: auto;
         }
 
-        .macro-actions {
+        .management-actions {
             display: flex;
-            gap: 10px;
+            gap: 5px;
         }
 
-        .btn-copy {
+        .mini-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .mini-btn.add {
             background: linear-gradient(45deg, #11998e, #38ef7d);
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            flex: 1;
         }
 
-        .btn-copy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
-        }
-
-        .btn-edit {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-edit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-delete {
+        .mini-btn.delete {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
         }
 
-        .btn-delete:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        .mini-btn:hover {
+            transform: translateY(-1px);
         }
 
         /* Hover Preview */
@@ -686,7 +894,7 @@
             }
             
             .macros-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
             }
             
             .header h1 {
@@ -697,16 +905,16 @@
                 flex-direction: column;
             }
 
-            .quick-buttons {
+            .quick-buttons, .favorite-buttons {
                 justify-content: stretch;
             }
 
-            .quick-btn {
+            .quick-btn, .favorite-btn {
                 flex: 1;
                 min-width: 0;
             }
 
-            .backup-controls {
+            .header-controls {
                 position: static;
                 justify-content: center;
                 margin-top: 15px;
@@ -715,25 +923,41 @@
             .modal {
                 padding: 25px;
             }
+
+            .management-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="backup-controls">
-                <button class="backup-btn guide" onclick="showBackupGuide()">📚 Backup Guide</button>
-                <button class="backup-btn export" onclick="exportMacros()">💾 Export</button>
-                <button class="backup-btn import" onclick="triggerImport()">📁 Import</button>
+            <div class="header-controls">
+                <button class="control-btn" onclick="showSettings()">⚙️ Settings</button>
+                <button class="control-btn backup" onclick="showBackupGuide()">📚 Guide</button>
+                <button class="control-btn export" onclick="exportMacros()">💾 Export</button>
+                <button class="control-btn import" onclick="triggerImport()">📁 Import</button>
                 <input type="file" id="importFile" accept=".json" onchange="importMacros(event)">
             </div>
             <h1>✨ Macro Tool</h1>
             <p>Quick copy-paste templates for Gnatta email platform</p>
         </div>
 
+        <!-- Favorites Bar -->
+        <div class="favorites-bar" id="favoritesBar" style="display: none;">
+            <h3>⭐ Favorite Macros</h3>
+            <div class="favorite-buttons" id="favoriteButtons">
+                <div style="color: rgba(139, 69, 19, 0.7); text-align: center; width: 100%; padding: 20px;">
+                    Star some macros to see them here!
+                </div>
+            </div>
+        </div>
+
         <!-- Quick Actions Bar -->
         <div class="quick-actions">
-            <h3>⚡ Quick Actions - Most Used Macros</h3>
+            <h3>🔥 Most Used Macros</h3>
             <div class="quick-buttons" id="quickButtons">
                 <div style="color: rgba(255,255,255,0.7); text-align: center; width: 100%; padding: 20px;">
                     Add some macros to see your most used ones here!
@@ -749,14 +973,21 @@
             </div>
         </div>
 
-        <!-- Category Filters -->
-        <div class="category-filters">
-            <button class="category-btn active" onclick="filterByCategory('all')">All</button>
-            <button class="category-btn category-welcome" onclick="filterByCategory('welcome')">Welcome</button>
-            <button class="category-btn category-followup" onclick="filterByCategory('followup')">Follow-up</button>
-            <button class="category-btn category-closing" onclick="filterByCategory('closing')">Closing</button>
-            <button class="category-btn category-support" onclick="filterByCategory('support')">Support</button>
-            <button class="category-btn category-other" onclick="filterByCategory('other')">Other</button>
+        <!-- Category Section -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-filters" id="categoryFilters">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+                <button class="manage-categories-btn" onclick="showCategoryManager()">✏️ Manage</button>
+            </div>
+        </div>
+
+        <!-- View Controls -->
+        <div class="view-controls">
+            <button class="view-btn" onclick="setViewMode('compact')">📏 Compact</button>
+            <button class="view-btn active" onclick="setViewMode('normal')">📐 Normal</button>
+            <button class="view-btn" onclick="setViewMode('large')">📏 Large</button>
         </div>
 
         <div class="add-macro-section">
@@ -769,11 +1000,7 @@
                 <div class="form-group small">
                     <label for="macroCategory">Category</label>
                     <select id="macroCategory">
-                        <option value="welcome">Welcome</option>
-                        <option value="followup">Follow-up</option>
-                        <option value="closing">Closing</option>
-                        <option value="support">Support</option>
-                        <option value="other">Other</option>
+                        <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
             </div>
@@ -782,12 +1009,10 @@
                 <textarea id="macroContent" placeholder="Enter your email template or response here..."></textarea>
                 <div class="variable-helpers">
                     <span style="color: rgba(255,255,255,0.8); font-size: 12px; margin-right: 10px;">Quick Variables:</span>
-                    <button type="button" class="variable-btn" onclick="insertVariable('[CUSTOMER_NAME]')">Customer Name</button>
-                    <button type="button" class="variable-btn" onclick="insertVariable('[COMPANY_NAME]')">Company</button>
-                    <button type="button" class="variable-btn" onclick="insertVariable('[DATE]')">Date</button>
-                    <button type="button" class="variable-btn" onclick="insertVariable('[YOUR_NAME]')">Your Name</button>
-                    <button type="button" class="variable-btn" onclick="insertVariable('[ORDER_NUMBER]')">Order #</button>
-                    <button type="button" class="variable-btn" onclick="insertVariable('• ')">• Bullet</button>
+                    <div id="variableButtons">
+                        <!-- Variable buttons will be populated by JavaScript -->
+                    </div>
+                    <button type="button" class="manage-variables-btn" onclick="showVariableManager()">✏️ Manage</button>
                 </div>
             </div>
             <button class="btn-add" onclick="addMacro()">Add Macro</button>
@@ -850,6 +1075,106 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ Settings</h2>
+                <button class="modal-close" onclick="hideSettings()">×</button>
+            </div>
+            
+            <div class="management-form">
+                <h3 style="margin-bottom: 15px;">🎨 Theme Options</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="modal-btn primary" onclick="setTheme('default')">Default</button>
+                    <button class="modal-btn secondary" onclick="setTheme('dark')" disabled>Dark (Coming Soon)</button>
+                </div>
+            </div>
+
+            <div class="management-form">
+                <h3 style="margin-bottom: 15px;">📊 Display Options</h3>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="showFavorites" onchange="toggleFavoritesBar()">
+                        <span>Show Favorites Bar</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="showMostUsed" onchange="toggleMostUsedBar()" checked>
+                        <span>Show Most Used Bar</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="showCopyHistory" onchange="toggleCopyHistory()" checked>
+                        <span>Show Copy History</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="hideSettings();">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Manager Modal -->
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🏷️ Manage Categories</h2>
+                <button class="modal-close" onclick="hideCategoryManager()">×</button>
+            </div>
+            
+            <div class="management-form">
+                <h3 style="margin-bottom: 15px;">Existing Categories</h3>
+                <div id="categoryList">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0;">Add New Category</h3>
+                <div class="management-item">
+                    <input type="color" id="newCategoryColor" class="color-picker" value="#667eea">
+                    <input type="text" id="newCategoryName" class="management-input" placeholder="Category name...">
+                    <button class="mini-btn add" onclick="addCategory()">Add</button>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="hideCategoryManager();">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Variable Manager Modal -->
+    <div class="modal-overlay" id="variableModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🔧 Manage Variables</h2>
+                <button class="modal-close" onclick="hideVariableManager()">×</button>
+            </div>
+            
+            <div class="management-form">
+                <h3 style="margin-bottom: 15px;">Quick Variables</h3>
+                <div id="variableList">
+                    <!-- Variables will be populated by JavaScript -->
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0;">Add New Variable</h3>
+                <div class="management-item">
+                    <input type="text" id="newVariableName" class="management-input" placeholder="Variable name (e.g., AGENT_NAME)">
+                    <input type="text" id="newVariableDisplay" class="management-input" placeholder="Display name (e.g., Agent Name)">
+                    <button class="mini-btn add" onclick="addVariable()">Add</button>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="hideVariableManager();">Done</button>
+            </div>
+        </div>
+    </div>
+
     <div id="notification" class="notification"></div>
     <div id="previewTooltip" class="preview-tooltip"></div>
 
@@ -858,7 +1183,34 @@
         let macros = JSON.parse(localStorage.getItem('gnattaMacros')) || [];
         let copyHistory = JSON.parse(localStorage.getItem('copyHistory')) || [];
         let macroUsage = JSON.parse(localStorage.getItem('macroUsage')) || {};
+        let favorites = JSON.parse(localStorage.getItem('macroFavorites')) || [];
         let currentFilter = 'all';
+        let currentViewMode = localStorage.getItem('viewMode') || 'normal';
+        
+        // Default categories and variables
+        let categories = JSON.parse(localStorage.getItem('customCategories')) || [
+            { id: 'welcome', name: 'Welcome', color: '#ff9a9e' },
+            { id: 'followup', name: 'Follow-up', color: '#a8edea' },
+            { id: 'closing', name: 'Closing', color: '#ffecd2' },
+            { id: 'support', name: 'Support', color: '#667eea' },
+            { id: 'other', name: 'Other', color: '#f093fb' }
+        ];
+        
+        let customVariables = JSON.parse(localStorage.getItem('customVariables')) || [
+            { name: 'CUSTOMER_NAME', display: 'Customer Name' },
+            { name: 'COMPANY_NAME', display: 'Company' },
+            { name: 'DATE', display: 'Date' },
+            { name: 'YOUR_NAME', display: 'Your Name' },
+            { name: 'ORDER_NUMBER', display: 'Order #' },
+            { name: '• ', display: '• Bullet' }
+        ];
+
+        // Settings
+        let settings = JSON.parse(localStorage.getItem('appSettings')) || {
+            showFavorites: false,
+            showMostUsed: true,
+            showCopyHistory: true
+        };
 
         // Backup and Import Functions
         function showBackupGuide() {
@@ -874,8 +1226,13 @@
                 macros: macros,
                 copyHistory: copyHistory,
                 macroUsage: macroUsage,
+                favorites: favorites,
+                categories: categories,
+                customVariables: customVariables,
+                settings: settings,
+                viewMode: currentViewMode,
                 exportDate: new Date().toISOString(),
-                version: "1.0"
+                version: "2.0"
             };
             
             const dataStr = JSON.stringify(dataToExport, null, 2);
@@ -886,7 +1243,7 @@
             link.download = `macro-backup-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
             
-            showNotification('📁 Macros exported successfully! File saved to Downloads.');
+            showNotification('📁 Complete backup exported successfully!');
         }
 
         function triggerImport() {
@@ -905,34 +1262,51 @@
                     if (importedData.macros && Array.isArray(importedData.macros)) {
                         let shouldMerge = true;
                         
-                        // Only ask about merge/replace if user has existing macros
                         if (macros.length > 0) {
                             shouldMerge = confirm(
                                 `Found ${importedData.macros.length} macros to import.\n\n` +
-                                'Click OK to MERGE with existing macros\n' +
-                                'Click Cancel to REPLACE all existing macros'
+                                'Click OK to MERGE with existing data\n' +
+                                'Click Cancel to REPLACE all existing data'
                             );
                         }
                         
                         if (shouldMerge) {
-                            // Merge: add imported macros with new IDs to avoid conflicts
+                            // Merge macros with new IDs
                             const maxId = Math.max(...macros.map(m => m.id), 0);
                             const importedMacros = importedData.macros.map((macro, index) => ({
                                 ...macro,
                                 id: maxId + index + 1
                             }));
                             macros = [...macros, ...importedMacros];
+                            
+                            // Merge other data
+                            if (importedData.favorites) {
+                                favorites = [...new Set([...favorites, ...importedData.favorites])];
+                            }
+                            if (importedData.categories) {
+                                categories = [...categories, ...importedData.categories.filter(cat => 
+                                    !categories.find(existing => existing.id === cat.id)
+                                )];
+                            }
+                            if (importedData.customVariables) {
+                                customVariables = [...customVariables, ...importedData.customVariables.filter(variable => 
+                                    !customVariables.find(existing => existing.name === variable.name)
+                                )];
+                            }
                         } else {
-                            // Replace: use imported data entirely
+                            // Replace everything
                             macros = importedData.macros;
                             copyHistory = importedData.copyHistory || [];
                             macroUsage = importedData.macroUsage || {};
+                            favorites = importedData.favorites || [];
+                            if (importedData.categories) categories = importedData.categories;
+                            if (importedData.customVariables) customVariables = importedData.customVariables;
+                            if (importedData.settings) settings = importedData.settings;
+                            if (importedData.viewMode) currentViewMode = importedData.viewMode;
                         }
                         
-                        saveMacros();
-                        renderMacros();
-                        updateQuickActions();
-                        updateCopyHistory();
+                        saveAll();
+                        initializeApp();
                         
                         showNotification(`🎉 Successfully imported ${importedData.macros.length} macros!`);
                     } else {
@@ -945,11 +1319,299 @@
             };
             reader.readAsText(file);
             
-            // Clear the input so the same file can be selected again
             event.target.value = '';
         }
 
-        // Add new macro function
+        // Settings Functions
+        function showSettings() {
+            updateSettingsModal();
+            document.getElementById('settingsModal').classList.add('show');
+        }
+
+        function hideSettings() {
+            document.getElementById('settingsModal').classList.remove('show');
+        }
+
+        function updateSettingsModal() {
+            document.getElementById('showFavorites').checked = settings.showFavorites;
+            document.getElementById('showMostUsed').checked = settings.showMostUsed;
+            document.getElementById('showCopyHistory').checked = settings.showCopyHistory;
+        }
+
+        function toggleFavoritesBar() {
+            settings.showFavorites = document.getElementById('showFavorites').checked;
+            updateBarsVisibility();
+            saveSettings();
+        }
+
+        function toggleMostUsedBar() {
+            settings.showMostUsed = document.getElementById('showMostUsed').checked;
+            updateBarsVisibility();
+            saveSettings();
+        }
+
+        function toggleCopyHistory() {
+            settings.showCopyHistory = document.getElementById('showCopyHistory').checked;
+            updateBarsVisibility();
+            saveSettings();
+        }
+
+        function updateBarsVisibility() {
+            const favoritesBar = document.getElementById('favoritesBar');
+            const quickActions = document.querySelector('.quick-actions');
+            const copyHistory = document.querySelector('.copy-history');
+            
+            if (settings.showFavorites && favorites.length > 0) {
+                favoritesBar.style.display = 'block';
+            } else {
+                favoritesBar.style.display = 'none';
+            }
+            
+            quickActions.style.display = settings.showMostUsed ? 'block' : 'none';
+            copyHistory.style.display = settings.showCopyHistory ? 'block' : 'none';
+        }
+
+        // View Mode Functions
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            localStorage.setItem('viewMode', mode);
+            
+            // Update active button
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderMacros();
+        }
+
+        // Star Functions
+        function toggleStar(macroId) {
+            const index = favorites.indexOf(macroId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(macroId);
+            }
+            saveFavorites();
+            updateFavorites();
+            renderMacros();
+            updateBarsVisibility();
+        }
+
+        function updateFavorites() {
+            const container = document.getElementById('favoriteButtons');
+            const favoriteMacros = macros.filter(macro => favorites.includes(macro.id));
+            
+            if (favoriteMacros.length === 0) {
+                container.innerHTML = '<div style="color: rgba(139, 69, 19, 0.7); text-align: center; width: 100%; padding: 20px;">Star some macros to see them here!</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            favoriteMacros.forEach(macro => {
+                const button = document.createElement('button');
+                button.className = 'favorite-btn';
+                button.innerHTML = `⭐ ${macro.name}`;
+                button.addEventListener('click', () => {
+                    copyMacro(macro.content, macro.id, macro.name);
+                });
+                container.appendChild(button);
+            });
+        }
+
+        // Category Management Functions
+        function showCategoryManager() {
+            updateCategoryList();
+            document.getElementById('categoryModal').classList.add('show');
+        }
+
+        function hideCategoryManager() {
+            document.getElementById('categoryModal').classList.remove('show');
+            renderCategories();
+            renderMacroForm();
+        }
+
+        function updateCategoryList() {
+            const container = document.getElementById('categoryList');
+            container.innerHTML = categories.map(category => `
+                <div class="management-item">
+                    <input type="color" value="${category.color}" onchange="updateCategoryColor('${category.id}', this.value)" class="color-picker">
+                    <input type="text" value="${category.name}" onchange="updateCategoryName('${category.id}', this.value)" class="management-input">
+                    <div class="management-actions">
+                        ${categories.length > 1 ? `<button class="mini-btn delete" onclick="deleteCategory('${category.id}')">🗑️</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addCategory() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            const color = document.getElementById('newCategoryColor').value;
+            
+            if (!name) {
+                showNotification('Please enter a category name!', 'error');
+                return;
+            }
+            
+            const id = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (categories.find(cat => cat.id === id)) {
+                showNotification('Category already exists!', 'error');
+                return;
+            }
+            
+            categories.push({ id, name, color });
+            saveCategories();
+            updateCategoryList();
+            
+            document.getElementById('newCategoryName').value = '';
+            document.getElementById('newCategoryColor').value = '#667eea';
+            
+            showNotification(`Category "${name}" added!`);
+        }
+
+        function updateCategoryColor(id, color) {
+            const category = categories.find(cat => cat.id === id);
+            if (category) {
+                category.color = color;
+                saveCategories();
+            }
+        }
+
+        function updateCategoryName(id, name) {
+            const category = categories.find(cat => cat.id === id);
+            if (category) {
+                category.name = name.trim();
+                saveCategories();
+            }
+        }
+
+        function deleteCategory(id) {
+            if (categories.length <= 1) {
+                showNotification('Cannot delete the last category!', 'error');
+                return;
+            }
+            
+            const categoryName = categories.find(cat => cat.id === id)?.name;
+            if (confirm(`Delete category "${categoryName}"? Macros in this category will be moved to "Other".`)) {
+                // Move macros to "other" category
+                macros.forEach(macro => {
+                    if (macro.category === id) {
+                        macro.category = 'other';
+                    }
+                });
+                
+                categories = categories.filter(cat => cat.id !== id);
+                saveCategories();
+                saveMacros();
+                updateCategoryList();
+                
+                showNotification(`Category "${categoryName}" deleted!`);
+            }
+        }
+
+        // Variable Management Functions
+        function showVariableManager() {
+            updateVariableList();
+            document.getElementById('variableModal').classList.add('show');
+        }
+
+        function hideVariableManager() {
+            document.getElementById('variableModal').classList.remove('show');
+            renderVariables();
+        }
+
+        function updateVariableList() {
+            const container = document.getElementById('variableList');
+            container.innerHTML = customVariables.map((variable, index) => `
+                <div class="management-item">
+                    <input type="text" value="${variable.name}" onchange="updateVariableName(${index}, this.value)" class="management-input" placeholder="Variable name">
+                    <input type="text" value="${variable.display}" onchange="updateVariableDisplay(${index}, this.value)" class="management-input" placeholder="Display name">
+                    <div class="management-actions">
+                        <button class="mini-btn delete" onclick="deleteVariable(${index})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addVariable() {
+            const name = document.getElementById('newVariableName').value.trim().toUpperCase();
+            const display = document.getElementById('newVariableDisplay').value.trim();
+            
+            if (!name || !display) {
+                showNotification('Please enter both variable name and display name!', 'error');
+                return;
+            }
+            
+            if (customVariables.find(v => v.name === name)) {
+                showNotification('Variable already exists!', 'error');
+                return;
+            }
+            
+            customVariables.push({ name, display });
+            saveVariables();
+            updateVariableList();
+            
+            document.getElementById('newVariableName').value = '';
+            document.getElementById('newVariableDisplay').value = '';
+            
+            showNotification(`Variable "${display}" added!`);
+        }
+
+        function updateVariableName(index, name) {
+            customVariables[index].name = name.trim().toUpperCase();
+            saveVariables();
+        }
+
+        function updateVariableDisplay(index, display) {
+            customVariables[index].display = display.trim();
+            saveVariables();
+        }
+
+        function deleteVariable(index) {
+            const variable = customVariables[index];
+            if (confirm(`Delete variable "${variable.display}"?`)) {
+                customVariables.splice(index, 1);
+                saveVariables();
+                updateVariableList();
+                showNotification(`Variable "${variable.display}" deleted!`);
+            }
+        }
+
+        // Render Functions
+        function renderCategories() {
+            const container = document.getElementById('categoryFilters');
+            const allButton = `<button class="category-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="filterByCategory('all')">All</button>`;
+            
+            const categoryButtons = categories.map(category => `
+                <button class="category-btn ${currentFilter === category.id ? 'active' : ''}" 
+                        onclick="filterByCategory('${category.id}')"
+                        style="${currentFilter === category.id ? `background: linear-gradient(45deg, ${category.color}, ${adjustColor(category.color, 20)}) !important;` : ''}">
+                    ${category.name}
+                </button>
+            `).join('');
+            
+            container.innerHTML = allButton + categoryButtons;
+        }
+
+        function renderMacroForm() {
+            const select = document.getElementById('macroCategory');
+            select.innerHTML = categories.map(category => 
+                `<option value="${category.id}">${category.name}</option>`
+            ).join('');
+        }
+
+        function renderVariables() {
+            const container = document.getElementById('variableButtons');
+            container.innerHTML = customVariables.map(variable => {
+                const value = variable.name.includes(' ') ? variable.name : `[${variable.name}]`;
+                return `<button type="button" class="variable-btn" onclick="insertVariable('${value}')">${variable.display}</button>`;
+            }).join('');
+        }
+
+        function adjustColor(color, amount) {
+            return '#' + color.replace(/^#/, '').replace(/../g, color => ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
+        }
+
+        // Core Macro Functions
         function addMacro() {
             const name = document.getElementById('macroName').value.trim();
             const content = document.getElementById('macroContent').value.trim();
@@ -974,35 +1636,28 @@
             renderMacros();
             updateQuickActions();
             
-            // Clear form
             document.getElementById('macroName').value = '';
             document.getElementById('macroContent').value = '';
             
             showNotification('Macro added successfully! 🎉');
         }
 
-        // Edit macro function
         function editMacro(id) {
             const macro = macros.find(m => m.id === id);
             if (!macro) return;
 
-            // Populate form with existing data
             document.getElementById('macroName').value = macro.name;
             document.getElementById('macroContent').value = macro.content;
             document.getElementById('macroCategory').value = macro.category;
 
-            // Change button to update mode
             const addBtn = document.querySelector('.btn-add');
             addBtn.textContent = 'Update Macro';
             addBtn.onclick = () => updateMacro(id);
 
-            // Scroll to form
             document.querySelector('.add-macro-section').scrollIntoView({ behavior: 'smooth' });
-
             showNotification('Edit mode activated! Make changes and click Update Macro');
         }
 
-        // Update macro function
         function updateMacro(id) {
             const name = document.getElementById('macroName').value.trim();
             const content = document.getElementById('macroContent').value.trim();
@@ -1026,11 +1681,9 @@
                 renderMacros();
                 updateQuickActions();
 
-                // Reset form
                 document.getElementById('macroName').value = '';
                 document.getElementById('macroContent').value = '';
                 
-                // Reset button to add mode
                 const addBtn = document.querySelector('.btn-add');
                 addBtn.textContent = 'Add Macro';
                 addBtn.onclick = addMacro;
@@ -1039,57 +1692,30 @@
             }
         }
 
-        // Delete macro function
         function deleteMacro(id) {
             if (confirm('Are you sure you want to delete this macro?')) {
                 macros = macros.filter(macro => macro.id !== id);
+                favorites = favorites.filter(fav => fav !== id);
                 delete macroUsage[id];
-                saveMacros();
+                saveAll();
                 renderMacros();
                 updateQuickActions();
+                updateFavorites();
+                updateBarsVisibility();
                 showNotification('Macro deleted successfully!');
             }
         }
 
-        // Copy macro function
         async function copyMacro(content, macroId, macroName) {
             try {
                 await navigator.clipboard.writeText(content);
                 
-                // Update usage count
                 const macro = macros.find(m => m.id === macroId);
                 if (macro) {
                     macro.usageCount = (macro.usageCount || 0) + 1;
                     macroUsage[macroId] = macro.usageCount;
                 }
                 
-                // Add to copy history
-                addToCopyHistory(macroName);
-                
-                saveMacros();
-                updateQuickActions();
-                updateCopyHistory();
-                
-                showNotification(`📋 "${macroName}" copied to clipboard!`);
-                
-                // Play sound effect
-                playNotificationSound();
-                
-            } catch (err) {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = content;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                // Still update usage and history
-                const macro = macros.find(m => m.id === macroId);
-                if (macro) {
-                    macro.usageCount = (macro.usageCount || 0) + 1;
-                    macroUsage[macroId] = macro.usageCount;
-                }
                 addToCopyHistory(macroName);
                 saveMacros();
                 updateQuickActions();
@@ -1099,7 +1725,6 @@
             }
         }
 
-        // Add to copy history
         function addToCopyHistory(macroName) {
             const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             copyHistory.unshift({ name: macroName, time: timestamp });
@@ -1107,7 +1732,6 @@
             localStorage.setItem('copyHistory', JSON.stringify(copyHistory));
         }
 
-        // Update copy history display
         function updateCopyHistory() {
             const container = document.getElementById('historyItems');
             if (copyHistory.length === 0) {
@@ -1120,7 +1744,6 @@
             ).join('');
         }
 
-        // Fixed Update quick actions bar
         function updateQuickActions() {
             const container = document.getElementById('quickButtons');
             const topMacros = macros
@@ -1133,36 +1756,24 @@
                 return;
             }
 
-            // Clear existing buttons
             container.innerHTML = '';
-            
-            // Create buttons dynamically with proper event listeners
             topMacros.forEach(macro => {
                 const button = document.createElement('button');
                 button.className = 'quick-btn';
                 button.innerHTML = `${macro.name} <span style="opacity: 0.7;">(${macro.usageCount})</span>`;
-                
-                // Add event listener instead of onclick attribute
                 button.addEventListener('click', () => {
                     copyMacro(macro.content, macro.id, macro.name);
                 });
-                
                 container.appendChild(button);
             });
         }
 
-        // Filter by category
         function filterByCategory(category) {
             currentFilter = category;
-            
-            // Update active button
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
+            renderCategories();
             renderMacros();
         }
 
-        // Insert variable into textarea
         function insertVariable(variable) {
             const textarea = document.getElementById('macroContent');
             const start = textarea.selectionStart;
@@ -1174,13 +1785,6 @@
             textarea.focus();
         }
 
-        // Save macros to localStorage
-        function saveMacros() {
-            localStorage.setItem('gnattaMacros', JSON.stringify(macros));
-            localStorage.setItem('macroUsage', JSON.stringify(macroUsage));
-        }
-
-        // Fixed Render macros grid
         function renderMacros(filteredMacros = null) {
             const container = document.getElementById('macrosContainer');
             let macrosToShow = filteredMacros || macros;
@@ -1200,14 +1804,26 @@
             }
 
             container.innerHTML = `
-                <div class="macros-grid">
-                    ${macrosToShow.map(macro => `
-                        <div class="macro-card ${macro.category}" 
+                <div class="macros-grid ${currentViewMode}">
+                    ${macrosToShow.map(macro => {
+                        const category = categories.find(cat => cat.id === macro.category) || categories[0];
+                        const isStarred = favorites.includes(macro.id);
+                        
+                        return `
+                        <div class="macro-card ${macro.category} ${currentViewMode}" 
+                             style="--category-color: ${category.color};"
                              onmouseenter="showPreview(event, \`${macro.content.replace(/`/g, '\\`').replace(/\n/g, '\\n')}\`)"
                              onmouseleave="hidePreview()">
-                            <div class="macro-category ${macro.category}">${macro.category}</div>
-                            <h3>${macro.name} ${macro.usageCount ? `<span style="opacity: 0.6; font-size: 0.8em;">(${macro.usageCount} uses)</span>` : ''}</h3>
-                            <div class="macro-content">${macro.content.replace(/\n/g, '<br>').replace(/\[([A-Z_]+)\]/g, '<strong style="color: #667eea;">[$1]</strong>')}</div>
+                            <div class="macro-header">
+                                <div class="macro-title">
+                                    <div class="macro-category ${macro.category}" style="background: ${category.color}; color: ${isLightColor(category.color) ? '#333' : 'white'};">${category.name}</div>
+                                    <h3>${macro.name} ${macro.usageCount ? `<span style="opacity: 0.6; font-size: 0.8em;">(${macro.usageCount} uses)</span>` : ''}</h3>
+                                </div>
+                                <button class="star-btn ${isStarred ? 'starred' : ''}" onclick="toggleStar(${macro.id})">
+                                    ${isStarred ? '⭐' : '☆'}
+                                </button>
+                            </div>
+                            <div class="macro-content ${currentViewMode}">${macro.content.replace(/\n/g, '<br>').replace(/\[([A-Z_\s]+)\]/g, '<strong style="color: #667eea;">[$1]</strong>')}</div>
                             <div class="macro-actions">
                                 <button class="btn-copy" data-macro-id="${macro.id}">
                                     📋 Copy
@@ -1220,11 +1836,12 @@
                                 </button>
                             </div>
                         </div>
-                    `).join('')}
+                    `;
+                    }).join('')}
                 </div>
             `;
             
-            // Add event listeners to all buttons after rendering
+            // Add event listeners
             container.querySelectorAll('.btn-copy').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const macroId = parseInt(e.target.getAttribute('data-macro-id'));
@@ -1248,9 +1865,42 @@
                     deleteMacro(macroId);
                 });
             });
+
+            // Update dynamic CSS for category colors
+            updateCategoryStyles();
         }
 
-        // Search macros
+        function updateCategoryStyles() {
+            let existingStyle = document.getElementById('dynamicCategoryStyles');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+
+            const style = document.createElement('style');
+            style.id = 'dynamicCategoryStyles';
+            
+            const css = categories.map(category => `
+                .macro-card.${category.id}::before { 
+                    background: linear-gradient(90deg, ${category.color}, ${adjustColor(category.color, 20)}); 
+                }
+                .category-${category.id}.active { 
+                    background: linear-gradient(45deg, ${category.color}, ${adjustColor(category.color, 20)}) !important; 
+                }
+            `).join('');
+            
+            style.textContent = css;
+            document.head.appendChild(style);
+        }
+
+        function isLightColor(color) {
+            const hex = color.replace('#', '');
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            return brightness > 155;
+        }
+
         function searchMacros() {
             const searchTerm = document.getElementById('searchBox').value.toLowerCase();
             const filtered = macros.filter(macro => 
@@ -1261,21 +1911,18 @@
             renderMacros(filtered);
         }
 
-        // Show preview tooltip
         function showPreview(event, content) {
             const tooltip = document.getElementById('previewTooltip');
-            tooltip.innerHTML = content.replace(/\n/g, '<br>').replace(/\[([A-Z_]+)\]/g, '<strong style="color: #4facfe;">[$1]</strong>');
+            tooltip.innerHTML = content.replace(/\n/g, '<br>').replace(/\[([A-Z_\s]+)\]/g, '<strong style="color: #4facfe;">[$1]</strong>');
             tooltip.style.left = event.pageX + 20 + 'px';
             tooltip.style.top = event.pageY + 'px';
             tooltip.classList.add('show');
         }
 
-        // Hide preview tooltip
         function hidePreview() {
             document.getElementById('previewTooltip').classList.remove('show');
         }
 
-        // Show notification
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1286,7 +1933,6 @@
             }, 3000);
         }
 
-        // Play notification sound
         function playNotificationSound() {
             try {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -1309,20 +1955,65 @@
             }
         }
 
-        // Close modal when clicking outside
-        document.getElementById('backupModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideBackupGuide();
-            }
-        });
+        // Save Functions
+        function saveMacros() {
+            localStorage.setItem('gnattaMacros', JSON.stringify(macros));
+            localStorage.setItem('macroUsage', JSON.stringify(macroUsage));
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('macroFavorites', JSON.stringify(favorites));
+        }
+
+        function saveCategories() {
+            localStorage.setItem('customCategories', JSON.stringify(categories));
+        }
+
+        function saveVariables() {
+            localStorage.setItem('customVariables', JSON.stringify(customVariables));
+        }
+
+        function saveSettings() {
+            localStorage.setItem('appSettings', JSON.stringify(settings));
+        }
+
+        function saveAll() {
+            saveMacros();
+            saveFavorites();
+            saveCategories();
+            saveVariables();
+            saveSettings();
+        }
+
+        // Modal Event Listeners
+        function setupModalListeners() {
+            const modals = ['backupModal', 'settingsModal', 'categoryModal', 'variableModal'];
+            modals.forEach(modalId => {
+                document.getElementById(modalId).addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('show');
+                    }
+                });
+            });
+        }
 
         // Initialize the app
         function initializeApp() {
+            renderCategories();
+            renderMacroForm();
+            renderVariables();
             renderMacros();
             updateCopyHistory();
             updateQuickActions();
+            updateFavorites();
+            updateBarsVisibility();
+            setupModalListeners();
 
-            // Add some sample macros if none exist
+            // Set view mode
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="setViewMode('${currentViewMode}')"]`)?.classList.add('active');
+
+            // Add sample macros if none exist
             if (macros.length === 0) {
                 macros = [
                     {
@@ -1352,4 +2043,25 @@
         document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
 </body>
-</html>
+</html>opyHistory(macroName);
+                saveMacros();
+                updateQuickActions();
+                updateCopyHistory();
+                
+                showNotification(`📋 "${macroName}" copied to clipboard!`);
+                playNotificationSound();
+                
+            } catch (err) {
+                const textArea = document.createElement('textarea');
+                textArea.value = content;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const macro = macros.find(m => m.id === macroId);
+                if (macro) {
+                    macro.usageCount = (macro.usageCount || 0) + 1;
+                    macroUsage[macroId] = macro.usageCount;
+                }
+                addToC
